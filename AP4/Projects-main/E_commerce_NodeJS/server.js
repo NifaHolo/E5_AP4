@@ -16,7 +16,6 @@ let chaîneLongue = "Voici une très longue chaîne ";
 //moteur de template
 app.set('view engine', 'ejs')
 
-
 //midleware
 
 
@@ -290,11 +289,18 @@ app.get('/shop', (request, response) => {
 
     let Shop = require('./models/shop')
 console.log("shop")
+Shop.ajoutPanier(function(result) {  if(result == undefined){
+            request.flash('error', "Pas d'informations")
+            response.redirect('/')
+            console.log("pas de resultat!")
+    
+        }else {console.log(produit.libelle);}})
     Shop.listProduits(function(result) {
         if(result == undefined){
             request.flash('error', "Pas d'informations")
             response.redirect('/')
             console.log("pas de resultat!")
+    
         }
         else
         {
@@ -322,9 +328,7 @@ console.log("shop")
         {
 
             console.log("resultats produits:"+result)
-            console.log("MEHDI ok " + result.length)
             response.json(result)
-            console.log("MEHDI Apres " + result.length)
 
         }
     })
@@ -379,6 +383,7 @@ console.log("viewproduit")
 
 //get concernant le panier
 app.get('/panier', (request, response) => {
+    
 
     let Shop = require('./models/shop')
 console.log("panier")
@@ -415,7 +420,21 @@ var upload = multer({ storage: storage });
 //post concernant l'ajout de produit
 
 
+app.post('/delete_product_by_id', (request, response) => {
 
+    console.log("delete_product_by_id")
+    console.log(request.body)
+
+
+    let Shop = require('./models/shop')
+
+   Shop.deleteProductById(request.body.id, function(result){
+   })
+
+response.redirect('administration')
+
+
+})
 
 app.post('/JSON_add_product', (request, response) => {
     console.log("JSON_add_product")
@@ -424,7 +443,7 @@ app.post('/JSON_add_product', (request, response) => {
 
     let Shop = require('./models/shop')
 
-   Shop.createProduit(request.body,'produits/product-18.jpg', function(result){
+   Shop.createProduit(request.body,'produits/product-31.jpg', function(result){
                 console.log('produit créé !')
    })
 
@@ -451,6 +470,7 @@ console.log(request.body)
             })
 response.redirect('administration')
     }
+    
 
     //  Si y'a un libelle fond
     else if(request.body.libelFond !== undefined){

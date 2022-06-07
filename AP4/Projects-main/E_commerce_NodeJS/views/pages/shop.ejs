@@ -31,16 +31,34 @@
                     <a href="#"><i class="fa fa-heart"></i></a>
                   </li>
                   <li>
-                    <a href="/viewproduit?idProd=<%= product.idProd %>"><i class="fa fa-retweet"></i></a>
+                    <a href="#"><i class="fa fa-retweet"></i></a>
                   </li>
                   <li>
-                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                    <a onclick="ajoutPanier('product.libelle','product.stock','product.prix')"><i class="fa fa-shopping-cart"></i></a>
+                    <!-- quand je clique sur shopping cart -> faire une fonction qui ajoute le produit dans la page panier -->
                   </li>
                 </ul>
               </div>
               <div class="product__item__text">
-                <h6><a href="#"><%= product.libelle %></a></h6>
+        <h3>
+          <%= product.libelle %>
+        </h3>
                 <h5><%= product.prix %>€</h5>
+                <!-- si le stock est supérieur à 0 -->
+                <% if (product.stock > 0) { %>
+                  <!-- ALors afficher stock disponible et le nombre d'éxamplaire disponible -->
+                  <p>
+                   Stock disponible : <%= product.stock %>
+                  </p>  
+                  <!-- Si le stock est inférieur (cas impossible) ou égale a 0 -->
+                <% }else{ %>
+                  <!-- Afficher que le stock est épuisé -->
+                  <p>
+                    Stock épuisé
+                  </p>
+                <% } %>
+
+                <!-- rajouter une catégorie stock à la bdd et la demander lors de l'ajout du produit-->
               </div>
             </div>
           </div>

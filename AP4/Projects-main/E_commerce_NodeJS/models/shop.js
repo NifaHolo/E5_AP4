@@ -45,6 +45,22 @@ class Shop {
     });
   }
 
+  static deleteProductById(id,  cb) {
+    console.log("deleteProductById :" + id);
+
+    connection.query(
+      "DELETE FROM produits where libelle = ?",
+      [id],
+      (err, result) => {
+        if (err) throw err;
+        {
+          cb(result);
+        }
+      }
+    );
+  }
+
+
   static recupPhoto(content, cb) {
     connection.query(
       "SELECT * FROM photosproduits WHERE id = ?",
@@ -97,6 +113,9 @@ class Shop {
     );
   }
 
+static ajoutPanier(content,cb){
+}
+
   static deleteAll(table, cb) {
     const fs = require("fs");
     const path = require("path");
@@ -130,9 +149,10 @@ class Shop {
     );
 
     connection.query(
-      "INSERT INTO produits SET libelle = ?, description = ?, id_sous_categ = 1, prix = ?,id_photo = ?,Date = ?",
-      [content.libel, content.descProd, content.prix, idPhoto, new Date()],
-      (err, result) => {
+      //ajouter la catégorie de stock , stock = ?
+      "INSERT INTO produits SET libelle = ?, description = ?, id_sous_categ = 1, prix = ?,id_photo = ?,Date = ?,stock = ?",
+      [content.libel, content.descProd, content.prix, idPhoto, new Date(),content.stock],
+      (err, result) => {  
         if (err) throw err;
         {
           connection.query(

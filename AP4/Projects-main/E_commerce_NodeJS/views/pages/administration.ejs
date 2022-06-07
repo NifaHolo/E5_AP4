@@ -62,7 +62,13 @@
                                     locals.result.forEach(function(product) { %>
                                     <tr>
                                         <td class="shoping__cart__item">
-                                            <a style="display:block" id="<%= i %>Produit" ><%= product.libelle %></a>
+                                            <p style="display:block; color:black" id="<%= i %>Produit" ><%= product.libelle %></p>
+                                            <p style="display:block; color:black"> prix : <%= product.prix %> € </p>
+                                            <% if(product.stock > 0){ %>
+                                            <p style="display:block; color:black"> stock : <%= product.stock %></p> <!-- ajouter le nombre de stock-->
+                                            <% }else{ %>
+                                           <p style="display:block; color:black"> stock épuisé</p> <!-- ajouter le nombre de stock-->
+                                        <% }     %>
                                             <input name="<%= i %>Produit" style="display:none" id="<%= i %>Produit" value="<%= product.libelle %>"></input>
                                         </td>
                                         <td class="shoping__cart__item">
@@ -74,7 +80,9 @@
                                             <button type="button" style="background-color: white; border:none; border-color: red;"  onclick="Visibility('<%= i %>Produit')"><img src="img/icones/modify.png"></button>
                                         </td>
 
-                                        <td  class="shoping__cart__item__close">
+
+
+                                        <td  onclick="deleteByID('<%= product.libelle %>')" class="shoping__cart__item__close">
                                             <span class="icon_close"></span>
                                         </td>
                                     </tr>

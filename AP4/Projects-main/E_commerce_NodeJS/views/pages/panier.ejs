@@ -1,0 +1,47 @@
+<!-- Hero Section Begin -->
+<div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
+    <div class="hero__text"></div>
+</div>
+<!-- Hero Section End -->
+
+<!-- Breadcrumb Section Begin -->
+
+
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+
+        <div class="col-lg-9 col-md-7">
+
+
+            <div class="row">
+                <% if(locals.result){ locals.result.forEach(function(panier) { %>
+
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__text">
+
+                                <h5>
+                                    <%= panier.id %>
+                                </h5>
+                                <h5>
+                                    <%= panier.idProduits %>
+                                </h5>
+                                <!-- si le stock est supérieur à 0 -->
+       
+
+                                            <!-- rajouter une catégorie stock à la bdd et la demander lors de l'ajout du produit-->
+                            </div>
+                        </div>
+                    </div>
+                    <% }) } %>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Product Section End -->
